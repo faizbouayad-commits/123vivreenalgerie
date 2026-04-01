@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>123 Vivre en Algérie — Votre retour, simplifié</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #006233;
+  --green-light: #0a7b42;
+  --green-dark: #004d28;
+  --red: #D21034;
+  --red-soft: #e8384a;
+  --cream: #FAF6F0;
+  --sand: #E8DDD0;
+  --sand-light: #F2EDE6;
+  --brown: #6B5344;
+  --brown-dark: #3D2E24;
+  --white: #FFFFFF;
+  --text: #2A1F17;
+  --text-light: #7A6B5D;
+  --gold: #C9A96E;
+  --gold-light: #E6D5AB;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden; }
+
+.arabesque-bg {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0; opacity: 0.03;
+  background-image: repeating-conic-gradient(var(--green) 0% 25%, transparent 0% 50%), repeating-conic-gradient(var(--green) 0% 25%, transparent 0% 50%);
+  background-size: 60px 60px, 60px 60px; background-position: 0 0, 30px 30px;
+}
+
+nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; transition: all 0.4s ease; }
+nav.scrolled { background: rgba(250,246,240,0.95); backdrop-filter: blur(20px); box-shadow: 0 2px 30px rgba(0,0,0,0.06); padding: 0.7rem 2rem; }
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 900; color: var(--green); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
+.nav-logo .numbers { background: var(--green); color: white; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 1.1rem; letter-spacing: 1px; }
+.nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+.nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.9rem; letter-spacing: 0.5px; transition: color 0.3s; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--red); transition: width 0.3s; }
+.nav-links a:hover { color: var(--green); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta { background: var(--green) !important; color: white !important; padding: 0.6rem 1.5rem !important; border-radius: 50px !important; font-weight: 600 !important; transition: all 0.3s !important; }
+.nav-cta:hover { background: var(--green-dark) !important; transform: translateY(-1px); box-shadow: 0 4px 15px rgba(0,98,51,0.3); }
+.nav-cta::after { display: none !important; }
+
+.hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; z-index: 1; }
+.hero-bg { position: absolute; top: 0; right: 0; width: 55%; height: 100%; background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 60%, #002a18 100%); clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%); }
+.hero-bg::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0 L80 40 L40 80 L0 40Z' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1'/%3E%3C/svg%3E"); background-size: 80px 80px; }
+.hero-content { display: grid; grid-template-columns: 1fr 1fr; max-width: 1400px; margin: 0 auto; padding: 0 4rem; gap: 4rem; align-items: center; width: 100%; }
+.hero-left { padding-top: 4rem; }
+.hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--sand); padding: 0.5rem 1.2rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; color: var(--green); margin-bottom: 2rem; letter-spacing: 1px; text-transform: uppercase; animation: fadeInUp 0.8s ease; }
+.hero-badge .dot { width: 8px; height: 8px; background: var(--red); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
+.hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; animation: fadeInUp 0.8s ease 0.1s both; }
+.hero-title .accent { color: var(--green); position: relative; }
+.hero-title .accent::after { content: ''; position: absolute; bottom: 2px; left: 0; width: 100%; height: 8px; background: var(--gold-light); z-index: -1; border-radius: 2px; }
+.hero-title em { font-style: italic; color: var(--red); }
+.hero-desc { font-size: 1.15rem; color: var(--text-light); line-height: 1.7; margin-bottom: 2.5rem; max-width: 500px; animation: fadeInUp 0.8s ease 0.2s both; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeInUp 0.8s ease 0.3s both; }
+.btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--green); color: white; padding: 1rem 2rem; border-radius: 50px; font-weight: 600; font-size: 1rem; text-decoration: none; transition: all 0.3s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.btn-primary:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,98,51,0.3); }
+.btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: var(--text); padding: 1rem 2rem; border-radius: 50px; font-weight: 600; font-size: 1rem; text-decoration: none; border: 2px solid var(--sand); transition: all 0.3s; cursor: pointer; }
+.btn-secondary:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+.hero-right { position: relative; z-index: 2; display: flex; justify-content: center; align-items: center; padding: 4rem 0; }
+
+.auto-stack { display: flex; flex-direction: column; gap: 1.2rem; width: 380px; }
+.auto-card { background: white; border-radius: 16px; padding: 1.2rem 1.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 1rem; animation: float 6s ease-in-out infinite; border-left: 4px solid var(--green); }
+.auto-card:nth-child(2) { animation-delay: -2s; border-left-color: var(--gold); }
+.auto-card:nth-child(3) { animation-delay: -4s; border-left-color: var(--red); }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.auto-card-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+.auto-card-icon.g { background: rgba(0,98,51,0.1); }
+.auto-card-icon.o { background: rgba(201,169,110,0.1); }
+.auto-card-icon.r { background: rgba(210,16,52,0.1); }
+.auto-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.15rem; }
+.auto-card p { font-size: 0.78rem; color: var(--text-light); line-height: 1.4; }
+.auto-tag { margin-left: auto; font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0; }
+.auto-tag.live { background: rgba(0,98,51,0.1); color: var(--green); }
+.auto-tag.auto { background: rgba(201,169,110,0.15); color: var(--brown); }
+
+.stats { position: relative; z-index: 1; background: var(--green-dark); padding: 4rem 2rem; }
+.stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+.stat-item { text-align: center; color: white; }
+.stat-number { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; margin-bottom: 0.3rem; background: linear-gradient(135deg, white, var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-label { font-size: 0.85rem; opacity: 0.8; letter-spacing: 1px; text-transform: uppercase; }
+
+section { position: relative; z-index: 1; }
+.section-tag { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 1rem; }
+.section-tag .line { width: 30px; height: 2px; background: var(--red); }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; line-height: 1.15; margin-bottom: 1.2rem; }
+.section-desc { font-size: 1.05rem; color: var(--text-light); line-height: 1.7; max-width: 600px; }
+
+.quiz-section { padding: 7rem 2rem; background: white; }
+.quiz-container { max-width: 800px; margin: 0 auto; }
+.quiz-header { text-align: center; margin-bottom: 3rem; }
+.quiz-header .section-desc { margin: 0 auto; }
+.quiz-box { background: var(--cream); border-radius: 24px; padding: 3rem; position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.04); }
+.quiz-progress { display: flex; gap: 0.5rem; margin-bottom: 2.5rem; }
+.quiz-progress-dot { flex: 1; height: 6px; border-radius: 3px; background: var(--sand); transition: all 0.4s; }
+.quiz-progress-dot.active { background: var(--green); }
+.quiz-progress-dot.done { background: var(--green-light); }
+.quiz-question { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+.quiz-subtitle { font-size: 0.9rem; color: var(--text-light); margin-bottom: 2rem; }
+.quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.quiz-option { background: white; border: 2px solid var(--sand); border-radius: 16px; padding: 1.2rem 1.5rem; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--text); }
+.quiz-option:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.06); }
+.quiz-option.selected { border-color: var(--green); background: rgba(0,98,51,0.04); }
+.quiz-option-icon { font-size: 1.5rem; }
+.quiz-option-check { margin-left: auto; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--sand); display: flex; align-items: center; justify-content: center; transition: all 0.3s; font-size: 0.7rem; color: white; flex-shrink: 0; }
+.quiz-option.selected .quiz-option-check { background: var(--green); border-color: var(--green); }
+.quiz-nav { display: flex; justify-content: space-between; margin-top: 2rem; align-items: center; }
+.quiz-back { background: none; border: none; color: var(--text-light); font-size: 0.9rem; cursor: pointer; font-family: 'DM Sans', sans-serif; padding: 0.5rem 1rem; border-radius: 8px; transition: all 0.3s; }
+.quiz-back:hover { color: var(--text); background: var(--sand-light); }
+.quiz-input-group { display: flex; flex-direction: column; gap: 1rem; }
+.quiz-input { width: 100%; padding: 1rem 1.5rem; border: 2px solid var(--sand); border-radius: 14px; font-size: 1rem; font-family: 'DM Sans', sans-serif; background: white; color: var(--text); outline: none; transition: border-color 0.3s; }
+.quiz-input:focus { border-color: var(--green); }
+.quiz-input::placeholder { color: #bbb; }
+
+.quiz-result { text-align: center; }
+.quiz-result-icon { font-size: 4rem; margin-bottom: 1.5rem; animation: popIn 0.5s ease; }
+@keyframes popIn { 0% { transform: scale(0); } 70% { transform: scale(1.2); } 100% { transform: scale(1); } }
+.quiz-result h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; margin-bottom: 0.5rem; }
+.quiz-result-summary { font-size: 0.95rem; color: var(--text-light); line-height: 1.7; margin-bottom: 2rem; }
+.quiz-result-cards { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 2rem; text-align: left; }
+.result-card { background: white; border-radius: 14px; padding: 1.2rem; border: 1px solid rgba(0,0,0,0.05); }
+.result-card-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 0.3rem; font-weight: 600; }
+.result-card-value { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--green); }
+.quiz-result-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-whatsapp { display: inline-flex; align-items: center; gap: 0.5rem; background: #25D366; color: white; padding: 1rem 2rem; border-radius: 50px; font-weight: 600; font-size: 1rem; text-decoration: none; transition: all 0.3s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.btn-whatsapp:hover { background: #1fb855; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,211,102,0.3); }
+.btn-calendly { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--green); color: white; padding: 1rem 2rem; border-radius: 50px; font-weight: 600; font-size: 1rem; text-decoration: none; transition: all 0.3s; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+.btn-calendly:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,98,51,0.3); }
+
+.automation { padding: 7rem 2rem; background: var(--cream); }
+.automation-header { text-align: center; margin-bottom: 4rem; }
+.automation-header .section-desc { margin: 0 auto; }
+.flow-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; position: relative; }
+.flow-grid::before { content: ''; position: absolute; top: 50px; left: 12%; right: 12%; height: 3px; background: linear-gradient(90deg, var(--green), var(--gold), var(--red), var(--green)); z-index: 0; border-radius: 2px; }
+.flow-step { text-align: center; position: relative; z-index: 1; }
+.flow-icon { width: 80px; height: 80px; border-radius: 50%; background: white; border: 3px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 1rem; box-shadow: 0 8px 25px rgba(0,0,0,0.08); transition: all 0.3s; }
+.flow-step:hover .flow-icon { transform: scale(1.1); box-shadow: 0 12px 35px rgba(0,98,51,0.15); }
+.flow-label { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.3rem; }
+.flow-desc { font-size: 0.78rem; color: var(--text-light); line-height: 1.5; }
+.flow-auto { display: inline-block; margin-top: 0.4rem; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px; }
+.flow-auto.green { background: rgba(0,98,51,0.1); color: var(--green); }
+.flow-auto.gold { background: rgba(201,169,110,0.15); color: var(--brown); }
+
+.services { padding: 7rem 2rem; background: white; }
+.services-header { text-align: center; margin-bottom: 4rem; }
+.services-header .section-desc { margin: 0 auto; }
+.services-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.service-card { background: var(--cream); border-radius: 20px; padding: 2.5rem 2rem; border: 1px solid rgba(0,0,0,0.04); transition: all 0.4s ease; position: relative; overflow: hidden; }
+.service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--green), var(--gold)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+.service-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+.service-card:hover::before { transform: scaleX(1); }
+.service-icon { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.5rem; background: linear-gradient(135deg, rgba(0,98,51,0.08), rgba(0,98,51,0.03)); }
+.service-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; }
+.service-desc { font-size: 0.9rem; color: var(--text-light); line-height: 1.7; margin-bottom: 1.5rem; }
+.service-features { list-style: none; }
+.service-features li { padding: 0.3rem 0; font-size: 0.85rem; color: var(--text-light); display: flex; align-items: center; gap: 0.5rem; }
+.service-features li::before { content: '✓'; color: var(--green); font-weight: 700; font-size: 0.8rem; }
+.service-auto-badge { display: inline-flex; align-items: center; gap: 0.3rem; background: rgba(0,98,51,0.08); color: var(--green); font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.7rem; border-radius: 50px; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.testimonials { padding: 7rem 2rem; background: linear-gradient(180deg, var(--cream) 0%, var(--sand-light) 100%); }
+.testimonials-header { text-align: center; margin-bottom: 4rem; }
+.testimonials-header .section-desc { margin: 0 auto; }
+.testimonials-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.testimonial-card { background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: transform 0.3s; }
+.testimonial-card:hover { transform: translateY(-4px); }
+.testimonial-stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; letter-spacing: 2px; }
+.testimonial-text { font-size: 0.95rem; line-height: 1.7; color: var(--text); margin-bottom: 1.5rem; font-style: italic; }
+.testimonial-author { display: flex; align-items: center; gap: 0.8rem; }
+.testimonial-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--green); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; }
+.testimonial-name { font-weight: 700; font-size: 0.9rem; }
+.testimonial-from { font-size: 0.78rem; color: var(--text-light); }
+
+.cta { padding: 7rem 2rem; position: relative; overflow: hidden; }
+.cta-box { max-width: 1000px; margin: 0 auto; background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%); border-radius: 30px; padding: 5rem 4rem; text-align: center; position: relative; overflow: hidden; }
+.cta-box::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L55 30L30 55L5 30Z' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='1'/%3E%3C/svg%3E"); background-size: 60px 60px; }
+.cta-box > * { position: relative; z-index: 1; }
+.cta-arabic { font-family: 'Amiri', serif; font-size: 1.6rem; color: var(--gold-light); margin-bottom: 1rem; opacity: 0.9; }
+.cta-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 900; color: white; margin-bottom: 1rem; line-height: 1.2; }
+.cta-desc { font-size: 1.1rem; color: rgba(255,255,255,0.8); margin-bottom: 2.5rem; max-width: 550px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+.cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.cta-btn-wa { display: inline-flex; align-items: center; gap: 0.6rem; background: #25D366; color: white; padding: 1.1rem 2.2rem; border-radius: 50px; font-weight: 700; font-size: 1.05rem; text-decoration: none; transition: all 0.3s; font-family: 'DM Sans', sans-serif; }
+.cta-btn-wa:hover { background: #1fb855; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,211,102,0.4); }
+.cta-btn-cal { display: inline-flex; align-items: center; gap: 0.6rem; background: white; color: var(--green-dark); padding: 1.1rem 2.2rem; border-radius: 50px; font-weight: 700; font-size: 1.05rem; text-decoration: none; transition: all 0.3s; font-family: 'DM Sans', sans-serif; }
+.cta-btn-cal:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+
+.wa-float { position: fixed; bottom: 2rem; right: 2rem; z-index: 999; width: 64px; height: 64px; border-radius: 50%; background: #25D366; color: white; display: flex; align-items: center; justify-content: center; font-size: 2rem; text-decoration: none; box-shadow: 0 6px 25px rgba(37,211,102,0.4); transition: all 0.3s; animation: waBounce 3s ease-in-out infinite; }
+.wa-float:hover { transform: scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.5); }
+@keyframes waBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.wa-float-label { position: absolute; right: 80px; top: 50%; transform: translateY(-50%); background: white; padding: 0.5rem 1rem; border-radius: 10px; font-size: 0.8rem; font-weight: 600; color: var(--text); box-shadow: 0 4px 15px rgba(0,0,0,0.1); white-space: nowrap; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.wa-float:hover .wa-float-label { opacity: 1; }
+
+footer { background: var(--brown-dark); color: white; padding: 4rem 2rem 2rem; position: relative; z-index: 1; }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.footer-brand .nav-logo { color: white; font-size: 1.3rem; margin-bottom: 1rem; }
+.footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.7; max-width: 300px; }
+.footer-col h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 0.5rem; }
+.footer-col ul li a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
+.footer-col ul li a:hover { color: var(--gold-light); }
+.footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+.footer-flag { display: flex; gap: 4px; }
+.footer-flag span { width: 16px; height: 24px; border-radius: 2px; }
+.flag-green { background: var(--green); }
+.flag-white { background: white; }
+.flag-red { background: var(--red); }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.animate-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+.animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+
+.mobile-menu-btn { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text); padding: 0.5rem; }
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; text-align: center; padding: 0 2rem; }
+  .hero-left { padding-top: 8rem; }
+  .hero-desc { margin: 0 auto 2.5rem; }
+  .hero-actions { justify-content: center; }
+  .hero-bg { width: 100%; clip-path: polygon(0 60%, 100% 40%, 100% 100%, 0 100%); opacity: 0.15; }
+  .hero-right { display: none; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .flow-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .flow-grid::before { display: none; }
+  .quiz-result-cards { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .mobile-menu-btn { display: block; }
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--cream); flex-direction: column; padding: 1.5rem 2rem; gap: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+  .nav-links.active { display: flex; }
+  .services-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .cta-box { padding: 3rem 2rem; }
+  .cta-buttons { flex-direction: column; align-items: center; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  .hero-title { font-size: 2.4rem; }
+  .stat-number { font-size: 2.2rem; }
+  .quiz-options { grid-template-columns: 1fr; }
+  .quiz-box { padding: 2rem 1.5rem; }
+  .flow-grid { grid-template-columns: 1fr 1fr; }
+  .quiz-result-actions { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="arabesque-bg"></div>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo"><span class="numbers">123</span> Vivre en Algérie</a>
+  <button class="mobile-menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
+  <ul class="nav-links">
+    <li><a href="#quiz">Mon diagnostic</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#comment">Processus</a></li>
+    <li><a href="#temoignages">Témoignages</a></li>
+    <li><a href="#quiz" class="nav-cta">Lancer mon projet →</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-badge"><span class="dot"></span> 100% automatisé · Résultat en 2 min</div>
+      <h1 class="hero-title">Votre <span class="accent">retour en Algérie</span>,<br>simplifié en <em>3 clics</em></h1>
+      <p class="hero-desc">Répondez à quelques questions, recevez instantanément votre plan d'installation personnalisé, et lancez vos démarches — sans attente, sans intermédiaire.</p>
+      <div class="hero-actions">
+        <a href="#quiz" class="btn-primary">Faire mon diagnostic gratuit →</a>
+        <a href="#comment" class="btn-secondary">Comment ça marche</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="auto-stack">
+        <div class="auto-card">
+          <div class="auto-card-icon g">🤖</div>
+          <div><h4>Diagnostic instantané</h4><p>Quiz intelligent · Résultat en 2 min</p></div>
+          <span class="auto-tag live">Live</span>
+        </div>
+        <div class="auto-card">
+          <div class="auto-card-icon o">📅</div>
+          <div><h4>Réservation automatique</h4><p>Choisissez votre créneau · Confirmation immédiate</p></div>
+          <span class="auto-tag auto">Auto</span>
+        </div>
+        <div class="auto-card">
+          <div class="auto-card-icon r">💬</div>
+          <div><h4>WhatsApp direct</h4><p>Message pré-rempli · Réponse rapide</p></div>
+          <span class="auto-tag auto">Auto</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stats-grid">
+    <div class="stat-item animate-on-scroll"><div class="stat-number">7M+</div><div class="stat-label">Algériens à l'étranger</div></div>
+    <div class="stat-item animate-on-scroll"><div class="stat-number">2 min</div><div class="stat-label">Pour votre diagnostic</div></div>
+    <div class="stat-item animate-on-scroll"><div class="stat-number">48</div><div class="stat-label">Wilayas couvertes</div></div>
+    <div class="stat-item animate-on-scroll"><div class="stat-number">24/7</div><div class="stat-label">Disponibilité</div></div>
+  </div>
+</div>
+
+<section class="quiz-section" id="quiz">
+  <div class="quiz-container">
+    <div class="quiz-header animate-on-scroll">
+      <div class="section-tag"><span class="line"></span> Diagnostic gratuit</div>
+      <h2 class="section-title">Votre plan d'installation<br>en 2 minutes</h2>
+      <p class="section-desc">Répondez à 5 questions et recevez instantanément vos recommandations personnalisées — zéro attente.</p>
+    </div>
+    <div class="quiz-box animate-on-scroll" id="quizBox"></div>
+  </div>
+</section>
+
+<section class="automation" id="comment">
+  <div class="automation-header animate-on-scroll">
+    <div class="section-tag"><span class="line"></span> Processus 100% automatisé</div>
+    <h2 class="section-title">Zéro attente,<br>zéro paperasse inutile</h2>
+    <p class="section-desc">De votre première visite à votre installation, tout est automatisé pour avancer à votre rythme.</p>
+  </div>
+  <div class="flow-grid animate-on-scroll">
+    <div class="flow-step">
+      <div class="flow-icon">📋</div>
+      <div class="flow-label">Diagnostic</div>
+      <div class="flow-desc">Quiz intelligent, résultat immédiat avec plan personnalisé</div>
+      <span class="flow-auto green">⚡ Instantané</span>
+    </div>
+    <div class="flow-step">
+      <div class="flow-icon">📅</div>
+      <div class="flow-label">Réservation</div>
+      <div class="flow-desc">Choisissez votre créneau, confirmation par email automatique</div>
+      <span class="flow-auto green">⚡ Auto</span>
+    </div>
+    <div class="flow-step">
+      <div class="flow-icon">📦</div>
+      <div class="flow-label">Dossier</div>
+      <div class="flow-desc">Checklist générée, suivi en temps réel de vos démarches</div>
+      <span class="flow-auto gold">📊 Suivi live</span>
+    </div>
+    <div class="flow-step">
+      <div class="flow-icon">🏠</div>
+      <div class="flow-label">Installation</div>
+      <div class="flow-desc">Accueil sur place, accompagnement 6 mois inclus</div>
+      <span class="flow-auto green">✓ Garanti</span>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="services-header animate-on-scroll">
+    <div class="section-tag"><span class="line"></span> Nos Services</div>
+    <h2 class="section-title">Tout ce qu'il faut pour<br>votre nouvelle vie</h2>
+    <p class="section-desc">Des solutions complètes, la plupart déclenchées automatiquement selon votre profil.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card animate-on-scroll">
+      <div class="service-auto-badge">⚡ Démarrage auto</div>
+      <div class="service-icon">📄</div>
+      <h3 class="service-name">Démarches Administratives</h3>
+      <p class="service-desc">Checklist auto-générée selon votre pays et situation.</p>
+      <ul class="service-features"><li>Carte consulaire & état civil</li><li>NIF & domiciliation fiscale</li><li>Transfert de résidence</li><li>Reconnaissance des diplômes</li></ul>
+    </div>
+    <div class="service-card animate-on-scroll">
+      <div class="service-auto-badge">🔍 Matching auto</div>
+      <div class="service-icon">🏡</div>
+      <h3 class="service-name">Logement & Immobilier</h3>
+      <p class="service-desc">Biens présélectionnés selon vos critères et budget.</p>
+      <ul class="service-features"><li>Recherche personnalisée</li><li>Vérification juridique</li><li>Négociation & notaire</li><li>Aménagement & ameublement</li></ul>
+    </div>
+    <div class="service-card animate-on-scroll">
+      <div class="service-auto-badge">📊 Étude auto</div>
+      <div class="service-icon">💰</div>
+      <h3 class="service-name">Investissement & Business</h3>
+      <p class="service-desc">Analyse de faisabilité générée selon votre secteur.</p>
+      <ul class="service-features"><li>Création d'entreprise & RC</li><li>Étude de marché & business plan</li><li>Compte bancaire</li><li>Conseil fiscal & comptable</li></ul>
+    </div>
+    <div class="service-card animate-on-scroll">
+      <div class="service-auto-badge">🎯 Orientation auto</div>
+      <div class="service-icon">🎓</div>
+      <h3 class="service-name">Scolarité & Formation</h3>
+      <p class="service-desc">Écoles recommandées selon la wilaya et l'âge.</p>
+      <ul class="service-features"><li>Écoles publiques & privées</li><li>Internationales & bilingues</li><li>Équivalences & transfert</li><li>Cours de soutien</li></ul>
+    </div>
+    <div class="service-card animate-on-scroll">
+      <div class="service-auto-badge">🚀 Prise en charge auto</div>
+      <div class="service-icon">🚗</div>
+      <h3 class="service-name">Véhicule & Mobilité</h3>
+      <p class="service-desc">Démarches véhicule lancées dès validation du dossier.</p>
+      <ul class="service-features"><li>Achat neuf ou occasion</li><li>Dédouanement & immatriculation</li><li>Permis de conduire algérien</li><li>Assurance auto</li></ul>
+    </div>
+    <div class="service-card animate-on-scroll">
+      <div class="service-auto-badge">🤝 Réseau auto</div>
+      <div class="service-icon">❤️</div>
+      <h3 class="service-name">Intégration & Vie Quotidienne</h3>
+      <p class="service-desc">Connexion automatique à la communauté locale.</p>
+      <ul class="service-features"><li>Réseau médecins & hôpitaux</li><li>Couverture sociale</li><li>Communauté diaspora</li><li>Guide pratique</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="temoignages">
+  <div class="testimonials-header animate-on-scroll">
+    <div class="section-tag"><span class="line"></span> Témoignages</div>
+    <h2 class="section-title">Ils ont fait le grand saut</h2>
+    <p class="section-desc">Découvrez les histoires de ceux qui ont réussi leur retour avec notre accompagnement automatisé.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card animate-on-scroll">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">« J'ai fait le quiz un dimanche soir, lundi matin j'avais ma checklist complète et un RDV calé. En 2 mois : maison à Tlemcen et RC obtenu. »</p>
+      <div class="testimonial-author"><div class="testimonial-avatar">KM</div><div><div class="testimonial-name">Karim M.</div><div class="testimonial-from">Paris → Tlemcen</div></div></div>
+    </div>
+    <div class="testimonial-card animate-on-scroll">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">« Le WhatsApp automatique m'a bluffée. J'ai reçu mes options de logement en 24h. F4 vue mer à Oran. El hamdoulillah. »</p>
+      <div class="testimonial-author"><div class="testimonial-avatar">SB</div><div><div class="testimonial-name">Samira B.</div><div class="testimonial-from">Montréal → Oran</div></div></div>
+    </div>
+    <div class="testimonial-card animate-on-scroll">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">« Zéro appel téléphonique, tout s'est fait en ligne. Le suivi en temps réel de mon dossier m'a rassuré à chaque étape. Du sérieux. »</p>
+      <div class="testimonial-author"><div class="testimonial-avatar">YA</div><div><div class="testimonial-name">Yacine A.</div><div class="testimonial-from">Londres → Alger</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <div class="cta-box animate-on-scroll">
+    <div class="cta-arabic">بسم الله الرحمن الرحيم</div>
+    <h2 class="cta-title">Prêt à vivre en Algérie ?</h2>
+    <p class="cta-desc">Lancez votre projet maintenant. Diagnostic instantané ou échangez directement sur WhatsApp.</p>
+    <div class="cta-buttons">
+      <a href="#quiz" class="cta-btn-cal">📋 Faire mon diagnostic gratuit</a>
+      <a id="ctaWhatsapp" href="#" target="_blank" class="cta-btn-wa">💬 Parler sur WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<a id="waFloat" href="#" target="_blank" class="wa-float">💬<span class="wa-float-label">Besoin d'aide ? Écrivez-nous !</span></a>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo"><span class="numbers">123</span> Vivre en Algérie</a>
+      <p>Votre partenaire 100% automatisé pour un retour réussi en Algérie. Disponible 24h/24, 7j/7.</p>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#">Administratif</a></li><li><a href="#">Immobilier</a></li><li><a href="#">Investissement</a></li><li><a href="#">Scolarité</a></li><li><a href="#">Véhicule</a></li></ul></div>
+    <div class="footer-col"><h4>Ressources</h4><ul><li><a href="#">Blog</a></li><li><a href="#">Guide du retour</a></li><li><a href="#">FAQ</a></li><li><a href="#">Témoignages</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul><li><a href="#">contact@123vivreenalgerie.com</a></li><li><a href="#" id="footerWa">WhatsApp</a></li><li><a href="#">Instagram</a></li><li><a href="#">YouTube</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 123vivreenalgerie.com — Tous droits réservés</span>
+    <div class="footer-flag"><span class="flag-green"></span><span class="flag-white"></span><span class="flag-red"></span></div>
+  </div>
+</footer>
+
+<script>
+const WHATSAPP_NUMBER = '213XXXXXXXXX';
+const CALENDLY_URL = 'https://calendly.com/123vivreenalgerie';
+
+const quizData = [
+  { question: "Où vivez-vous actuellement ?", subtitle: "Pour adapter nos recommandations à votre pays", options: [
+    { icon: "🇫🇷", label: "France", value: "france" }, { icon: "🇨🇦", label: "Canada", value: "canada" },
+    { icon: "🇬🇧", label: "Royaume-Uni", value: "uk" }, { icon: "🌍", label: "Autre pays", value: "autre" }
+  ]},
+  { question: "Quel est votre objectif principal ?", subtitle: "On adapte votre parcours en fonction", options: [
+    { icon: "🏠", label: "M'installer / vivre", value: "vivre" }, { icon: "💼", label: "Investir / entreprendre", value: "investir" },
+    { icon: "🏖️", label: "Retraite au bled", value: "retraite" }, { icon: "🔄", label: "Retour définitif en famille", value: "famille" }
+  ]},
+  { question: "Dans quelle wilaya souhaitez-vous vous installer ?", subtitle: "Ou la région qui vous attire le plus", options: [
+    { icon: "🏙️", label: "Alger & environs", value: "alger" }, { icon: "🌊", label: "Oran & Ouest", value: "oran" },
+    { icon: "🏛️", label: "Constantine & Est", value: "constantine" }, { icon: "🤔", label: "Je ne sais pas encore", value: "indecis" }
+  ]},
+  { question: "Quel est votre horizon de temps ?", subtitle: "Pour prioriser les actions", options: [
+    { icon: "⚡", label: "Dans les 3 mois", value: "3mois" }, { icon: "📅", label: "Dans les 6 mois", value: "6mois" },
+    { icon: "🗓️", label: "Dans l'année", value: "1an" }, { icon: "💭", label: "J'explore pour l'instant", value: "explore" }
+  ]},
+  { question: "Comment préférez-vous être accompagné ?", subtitle: "On s'adapte à votre style", options: [
+    { icon: "💬", label: "WhatsApp", value: "whatsapp" }, { icon: "📧", label: "Email", value: "email" },
+    { icon: "📞", label: "Appel vidéo", value: "video" }, { icon: "🤖", label: "100% en ligne", value: "online" }
+  ]}
+];
+
+let currentStep = 0;
+let answers = {};
+
+function renderQuiz() {
+  const box = document.getElementById('quizBox');
+  if (currentStep < quizData.length) {
+    const q = quizData[currentStep];
+    const dots = quizData.map((_, i) => `<div class="quiz-progress-dot ${i < currentStep ? 'done' : ''} ${i === currentStep ? 'active' : ''}"></div>`).join('');
+    box.innerHTML = `<div class="quiz-progress">${dots}</div>
+      <div class="quiz-question">${q.question}</div>
+      <div class="quiz-subtitle">${q.subtitle}</div>
+      <div class="quiz-options">${q.options.map((o, i) => `<div class="quiz-option" onclick="selectOption(${i},'${o.value}')"><span class="quiz-option-icon">${o.icon}</span><span>${o.label}</span><span class="quiz-option-check">✓</span></div>`).join('')}</div>
+      <div class="quiz-nav">${currentStep > 0 ? '<button class="quiz-back" onclick="prevStep()">← Retour</button>' : '<div></div>'}<span style="font-size:0.8rem;color:var(--text-light)">${currentStep+1} / ${quizData.length}</span></div>`;
+  } else {
+    const dots = quizData.map(() => '<div class="quiz-progress-dot done"></div>').join('');
+    box.innerHTML = `<div class="quiz-progress">${dots}</div>
+      <div class="quiz-question">Dernière étape !</div>
+      <div class="quiz-subtitle">Vos coordonnées pour recevoir votre plan personnalisé instantanément</div>
+      <div class="quiz-input-group">
+        <input class="quiz-input" type="text" id="qName" placeholder="Votre prénom" required>
+        <input class="quiz-input" type="email" id="qEmail" placeholder="votre@email.com" required>
+        <input class="quiz-input" type="tel" id="qPhone" placeholder="Numéro WhatsApp (optionnel)">
+      </div>
+      <div class="quiz-nav">
+        <button class="quiz-back" onclick="prevStep()">← Retour</button>
+        <button class="btn-primary" onclick="submitQuiz()">Recevoir mon plan →</button>
+      </div>`;
+  }
+}
+
+function selectOption(index, value) {
+  answers[currentStep] = value;
+  document.querySelectorAll('.quiz-option').forEach((el, i) => el.classList.toggle('selected', i === index));
+  setTimeout(() => { currentStep++; renderQuiz(); }, 400);
+}
+function prevStep() { if (currentStep > 0) { currentStep--; renderQuiz(); } }
+
+function getRecommendations() {
+  const pays = {france:'France',canada:'Canada',uk:'Royaume-Uni',autre:'Étranger'}[answers[0]]||'Étranger';
+  const objectif = {vivre:"S'installer",investir:'Investir',retraite:'Retraite',famille:'Retour familial'}[answers[1]]||"S'installer";
+  const wilaya = {alger:'Alger',oran:'Oran',constantine:'Constantine',indecis:'À déterminer'}[answers[2]]||'À déterminer';
+  const horizon = {'3mois':'3 mois','6mois':'6 mois','1an':'1 an',explore:'Exploration'}[answers[3]]||'À définir';
+  let services, budget;
+  if (answers[1]==='investir') { services=['Création entreprise','Étude de marché','Compte bancaire','Fiscalité']; budget='1 500 € — 4 000 €'; }
+  else if (answers[1]==='retraite') { services=['Logement','Couverture santé','Transfert pension','Vie quotidienne']; budget='800 € — 2 000 €'; }
+  else if (answers[1]==='famille') { services=['Logement familial','Scolarité enfants','Admin complète','Intégration']; budget='1 200 € — 3 500 €'; }
+  else { services=['Admin & papiers','Logement','Compte bancaire','Guide pratique']; budget='600 € — 2 000 €'; }
+  return { pays, objectif, wilaya, horizon, services, budget };
+}
+
+function submitQuiz() {
+  const name = document.getElementById('qName').value.trim();
+  const email = document.getElementById('qEmail').value.trim();
+  const phone = document.getElementById('qPhone').value.trim();
+  if (!name || !email) { alert('Merci de remplir au moins votre prénom et email.'); return; }
+  const r = getRecommendations();
+  const waMsg = encodeURIComponent(`Salam ! Je suis ${name}, je vis en ${r.pays}.\n\nMon projet : ${r.objectif}\nWilaya visée : ${r.wilaya}\nHorizon : ${r.horizon}\nEmail : ${email}\n${phone?'Tél : '+phone+'\n':''}\nJe souhaite en savoir plus sur l'accompagnement 123vivreenalgerie.com.`);
+  const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${waMsg}`;
+  const box = document.getElementById('quizBox');
+  box.innerHTML = `<div class="quiz-result">
+    <div class="quiz-result-icon">🎯</div>
+    <h3>Votre plan est prêt, ${name} !</h3>
+    <p class="quiz-result-summary">Voici vos recommandations personnalisées. Choisissez comment continuer — tout est automatisé.</p>
+    <div class="quiz-result-cards">
+      <div class="result-card"><div class="result-card-label">Objectif</div><div class="result-card-value">${r.objectif}</div></div>
+      <div class="result-card"><div class="result-card-label">Destination</div><div class="result-card-value">${r.wilaya}</div></div>
+      <div class="result-card"><div class="result-card-label">Budget estimé</div><div class="result-card-value">${r.budget}</div></div>
+    </div>
+    <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:0.5rem"><strong>Services recommandés :</strong> ${r.services.join(' · ')}</p>
+    <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:2rem"><strong>Horizon :</strong> ${r.horizon}</p>
+    <div class="quiz-result-actions">
+      <a href="${waLink}" target="_blank" class="btn-whatsapp">💬 Continuer sur WhatsApp</a>
+      <a href="${CALENDLY_URL}" target="_blank" class="btn-calendly">📅 Réserver un appel gratuit</a>
+    </div>
+    <p style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-light)">📧 Un email récapitulatif sera envoyé à <strong>${email}</strong></p>
+  </div>`;
+  box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function setWhatsAppLinks() {
+  const msg = encodeURIComponent("Salam ! Je suis intéressé(e) par l'accompagnement 123vivreenalgerie.com pour mon retour en Algérie. Pouvez-vous m'en dire plus ?");
+  const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+  document.getElementById('waFloat').href = link;
+  document.getElementById('ctaWhatsapp').href = link;
+  document.getElementById('footerWa').href = link;
+}
+
+document.addEventListener('DOMContentLoaded', () => { renderQuiz(); setWhatsAppLinks(); });
+window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
+const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => { document.querySelector('.nav-links').classList.remove('active'); }); });
+</script>
+
+</body>
+</html>
